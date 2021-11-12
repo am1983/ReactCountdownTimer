@@ -11,6 +11,10 @@ const App = () => {
       return () => {
         clearTimeout(timeOut);
       };
+    } else {
+      if (seconds === 0) {
+        setIsActive(false);
+      }
     }
   }, [seconds, isActive]);
 
@@ -24,9 +28,20 @@ const App = () => {
 
   return (
     <div className="ui container">
-      <div>{ seconds }</div>
-      <button onClick={onStartClick}>Start Timer</button>
-      <button onClick={onStopClick}>Stop Timer</button>
+      <h1>{ seconds }</h1>
+      <div className="ui form">
+        <div class="ui right labeled input">
+          <input type="text" placeholder="mysite.com" value={seconds} onChange={(e) => setSeconds(e.target.value)} />
+          <div class="ui label">
+            Seconds
+          </div>
+        </div>
+        <div class="ui divider"></div>
+        <div className="field">
+          <button className={`ui primary button ${ isActive ? 'disabled' : '' }`} onClick={onStartClick}>Start Timer</button>
+          <button className={`ui red button ${ !isActive ? 'disabled' : '' }`} onClick={onStopClick}>Stop Timer</button>
+        </div>
+      </div>
     </div>
   );
 };
